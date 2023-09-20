@@ -162,7 +162,7 @@ public class MainMenu extends AppCompatActivity {
         try {
             Cursor csr = db.rawQuery("SELECT * FROM MasterKategori WHERE id IN("+inKode+")", null);
             while (csr.moveToNext()) {
-                result += csr.getString(1);
+                result += result.equals("")?csr.getString(1):", "+csr.getString(1);
             }
 
         }catch (Exception e){

@@ -15,6 +15,8 @@ import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class AdapterCabang extends ArrayAdapter<ItemCabang> {
@@ -37,8 +39,10 @@ public class AdapterCabang extends ArrayAdapter<ItemCabang> {
         }
         AppCompatImageView img_cover = (AppCompatImageView) view.findViewById(R.id.img_cover);
         TextView txt_nama = (TextView) view.findViewById(R.id.txt_nama);
+        TextView txt_kategori = (TextView) view.findViewById(R.id.txt_kategori);
 
         txt_nama.setText(itemCabangs.get(position).getNama());
+        txt_kategori.setText(itemCabangs.get(position).getKategori());
         if (itemCabangs.get(position).getCover().equals("")) {
             img_cover.setImageResource(R.drawable.image_svgrepo_com);
         }else {

@@ -16,6 +16,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 /**
  * Created by Awan on 18/09/2023.
@@ -74,8 +78,9 @@ public class WelcomePage extends AppCompatActivity {
             try {
                 String a = FungsiUmum.getResponseAPI("https://awanapp.000webhostapp.com/makanapa/getMasterKategori.php");
                 Log.i(TAG, "doInBackground: getkategori " + a);
+                return a;
             }catch (Exception e){
-
+                e.printStackTrace();
             }
             return null;
         }
@@ -83,6 +88,26 @@ public class WelcomePage extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            try {
+                JSONArray jsonArray = new JSONArray(s);
+                db.execSQL("DELETE FROM MasterKategori");
+                String value = "";
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    String id = jsonObject.getString("id");
+                    String NamaKategori = jsonObject.getString("NamaKategori");
+
+                    value += value.equals("")?"('"+id+"','"+NamaKategori+"')":", ('"+id+"','"+NamaKategori+"')";
+//                    String
+                }
+                Log.i(TAG, "onPostExecute: value " + value);
+                db.execSQL("INSERT INTO MasterKategori (id,NamaKategori) VALUES "+value);
+//                db.execSQL("DELETE FROM MasterPelanggan");
+//                    db.execSQL("INSERT INTO MasterPelanggan (username, password) VALUES ('','')");
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+
             cekData(db);
         }
     }
