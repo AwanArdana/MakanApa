@@ -7,10 +7,12 @@ public class ItemCabang {
     String Cabang = "";
     String Nama = "";
     String Cover = "";
-    public ItemCabang(String cabang, String nama, String cover){
+    String Kategori = "";
+    public ItemCabang(String cabang, String nama, String cover, String kategori){
         this.Cabang = cabang;
         this.Nama = nama;
         this.Cover = cover;
+        this.Kategori = kategori;
     }
 
     public String getCabang() {
@@ -23,5 +25,9 @@ public class ItemCabang {
 
     public String getCover() {
         return Cover;
+    }
+
+    public String getKategori() {
+        return Kategori;
     }
 }

@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.nfc.Tag;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +24,10 @@ public class WelcomePage extends AppCompatActivity {
     String TAG = "WelcomePage";
     AppCompatButton btn_go;
     Context context;
+    SQLiteDatabase db;
+    DBHelper dbHelper;
     boolean adaData;
+    TextView txt_loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +35,13 @@ public class WelcomePage extends AppCompatActivity {
         setContentView(R.layout.welcome_page);
         context = this;
 
-        DBHelper dbHelper = new DBHelper(context);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        dbHelper = new DBHelper(context);
+        db = dbHelper.getWritableDatabase();
 
         adaData = false;
-        cekData(db);
+        new GetKategori().execute("");
+
+        txt_loading = findViewById(R.id.txt_loading);
 
         btn_go = findViewById(R.id.btn_go);
 
@@ -42,6 +49,7 @@ public class WelcomePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!adaData) {
+                    db.execSQL("DELETE FROM MasterPelanggan");
                     db.execSQL("INSERT INTO MasterPelanggan (username, password) VALUES ('','')");
                     Log.i(TAG, "onClick: insertData");
 //                    ContentValues values = new ContentValues();
@@ -58,7 +66,29 @@ public class WelcomePage extends AppCompatActivity {
         });
     }
 
+    private class GetKategori extends AsyncTask<String, Void, String>{
+        @Override
+        protected String doInBackground(String... strings) {
+            btn_go.setVisibility(View.GONE);
+            txt_loading.setText("Get Kategori...");
+            try {
+                String a = FungsiUmum.getResponseAPI("https://awanapp.000webhostapp.com/makanapa/getMasterKategori.php");
+                Log.i(TAG, "doInBackground: getkategori " + a);
+            }catch (Exception e){
+
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            cekData(db);
+        }
+    }
+
     void cekData(SQLiteDatabase db){
+        txt_loading.setText("Get User Local...");
         Cursor cursor = db.rawQuery("SELECT username, password FROM MasterPelanggan", null);
         while (cursor.moveToNext()) {
             adaData = true;
@@ -71,5 +101,6 @@ public class WelcomePage extends AppCompatActivity {
         }
         Log.i(TAG, "cekData: adaData " + adaData);
         cursor.close();
+        btn_go.setVisibility(View.VISIBLE);
     }
 }

@@ -133,12 +133,14 @@ public class MainMenu extends AppCompatActivity {
                 String Nama = jsonObject.getString("Nama");
                 String Cabang = jsonObject.getString("Cabang");
                 String Cover = jsonObject.getString("Cover");
+                String Kategori = kategori(jsonObject.getString("KodeKategori"));
+                Log.i(TAG, "parseJsonData: kategoriHasil " + Kategori);
                 // Add more data fields as needed
 
 //                resultText.append(itemName).append("\n");
                 // You can append more data fields to resultText as needed
 //                adapter.add(Nama);
-                itemCabangs.add(new ItemCabang(Cabang, Nama, Cover));
+                itemCabangs.add(new ItemCabang(Cabang, Nama, Cover, Kategori));
             }
             adapterCabang = new AdapterCabang(context, itemCabangs);
             listView.setAdapter(adapterCabang);
@@ -150,5 +152,22 @@ public class MainMenu extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    String kategori(String kodeKategori){
+        String[] kode = kodeKategori.split("/", 2);
+        String inKode = "'"+kode[0]+"','"+kode[1]+"'";
+//        inKode = inKode.equals("")?"'"+kode[1]+"'":"'"+kode+"'"
+        String result = "";
+        try {
+            Cursor csr = db.rawQuery("SELECT * FROM MasterKategori WHERE id IN("+inKode+")", null);
+            while (csr.moveToNext()) {
+                result += csr.getString(1);
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
     }
 }
