@@ -5,7 +5,7 @@
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/greendark</item>
         <!-- Customize your theme here. -->
-        <item name="android:background">@color/white</item>
+        <item name="android:background">@color/gray</item>
         <item name="android:textColor">@color/greendark</item>
     </style>
 </resources>
