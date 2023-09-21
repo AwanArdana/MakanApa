@@ -4,58 +4,173 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <androidx.drawerlayout.widget.DrawerLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:padding="15dp">
-
-        <androidx.appcompat.widget.AppCompatEditText
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Search"
-            android:textColorHint="#5E5E5E"
-            android:paddingVertical="8dp"
-            android:paddingHorizontal="15dp"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/edittext_gray"
-            />
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/baseline_menu_24"
-            android:background="@null"/>
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/textViewResult"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="result"
-        android:visibility="gone"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center">
-
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <ListView
-            android:id="@+id/listView"
+        android:layout_height="match_parent"
+        android:id="@+id/drawer_layout">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"/>
+            android:orientation="vertical">
+<!--            menu atas search-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="15dp">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Search"
+                    android:textColorHint="#5E5E5E"
+                    android:paddingVertical="8dp"
+                    android:paddingHorizontal="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/edittext_gray"
+                    />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_baseline_menu"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/baseline_menu_24"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewResult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="result"
+                android:visibility="gone"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <ListView
+                    android:id="@+id/listView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"/>
 
 
-    </RelativeLayout>
+            </RelativeLayout>
+        </LinearLayout>
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigation_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="end"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_baseline_menu_close"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/baseline_menu_24"
+                        android:layout_gravity="end"/>
+
+                    <LinearLayout
+                        android:layout_marginTop="50dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center|end"
+                        android:clickable="true">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:text="Profile"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"/>
+
+<!--                        <ImageView-->
+<!--                            android:layout_width="20dp"-->
+<!--                            android:layout_height="20dp"-->
+<!--                            android:src="@drawable/ic_baseline_person_24"/>-->
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/ll_wishlist"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center|end"
+                        android:clickable="true">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:text="Wistlist"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"/>
+
+<!--                        <ImageView-->
+<!--                            android:layout_width="20dp"-->
+<!--                            android:layout_height="20dp"-->
+<!--                            android:padding="2dp"-->
+<!--                            android:src="@drawable/ic_wistlist_menu"/>-->
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_sign_out"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center|end"
+                    android:clickable="true"
+                    android:layout_marginBottom="50dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sign Out"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"/>
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="30dp"-->
+<!--                        android:layout_height="30dp"-->
+<!--                        android:padding="2dp"-->
+<!--                        android:src="@drawable/ic_baseline_exit_to_app_24"/>-->
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </com.google.android.material.navigation.NavigationView>
+    </androidx.drawerlayout.widget.DrawerLayout>
 
 
 

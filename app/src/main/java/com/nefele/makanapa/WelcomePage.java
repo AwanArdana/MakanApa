@@ -118,14 +118,19 @@ public class WelcomePage extends AppCompatActivity {
         while (cursor.moveToNext()) {
             adaData = true;
             Log.i(TAG, "cekData: " + cursor.getString(0) + cursor.getString(1));
+        }
+        Log.i(TAG, "cekData: adaData " + adaData);
+        cursor.close();
+
+        if (!adaData) {
+            txt_loading.setText("");
+            btn_go.setVisibility(View.VISIBLE);
+        }else {
             Intent intent = new Intent(WelcomePage.this, MainMenu.class);
             startActivity(intent);
 
             // Finish the current activity
             finish();
         }
-        Log.i(TAG, "cekData: adaData " + adaData);
-        cursor.close();
-        btn_go.setVisibility(View.VISIBLE);
     }
 }

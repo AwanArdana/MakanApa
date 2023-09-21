@@ -15,7 +15,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,6 +44,12 @@ public class MainMenu extends AppCompatActivity {
     SQLiteDatabase db;
     boolean adaData;
     private TextView textViewResult;
+
+    //menu atas
+    AppCompatButton btn_baseline_menu, btn_baseline_menu_close;
+    private DrawerLayout drawerLayout;
+
+
     private ListView listView;
     private ArrayAdapter<String> adapter;
     private static AdapterCabang adapterCabang;
@@ -54,7 +66,37 @@ public class MainMenu extends AppCompatActivity {
 
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(getResources().getColor(R.color.white));
+        window.setStatusBarColor(getResources().getColor(R.color.gray));
+
+
+        //menu atas
+        btn_baseline_menu = findViewById(R.id.btn_baseline_menu);
+        btn_baseline_menu_close = findViewById(R.id.btn_baseline_menu_close);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open_drawer, R.string.close_drawer);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        btn_baseline_menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
+                    drawerLayout.closeDrawer(GravityCompat.END);
+                }else {
+                    drawerLayout.openDrawer(GravityCompat.END);
+                }
+            }
+        });
+        btn_baseline_menu_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
+                    drawerLayout.closeDrawer(GravityCompat.END);
+                }else {
+                    drawerLayout.openDrawer(GravityCompat.END);
+                }
+            }
+        });
 
         textViewResult = findViewById(R.id.textViewResult);
         listView = findViewById(R.id.listView);
